@@ -14,7 +14,6 @@ def visualize_bayesian_network(bn_structure, savepath, figsize=(12, 12)):
 
     # 计算节点和边的数量
     num_nodes = len(model.nodes)
-    num_edges = len(model.edges)
 
     # 获取节点的层次信息
     def get_levels(G):
@@ -57,5 +56,5 @@ def visualize_bayesian_network(bn_structure, savepath, figsize=(12, 12)):
 
 if __name__ == '__main__':
     # 示例网络结构
-    bn_structure = [('BirthAsphyxia', 'Disease'), ('Disease', 'LVH'), ('Disease', 'DuctFlow'), ('Disease', 'CardiacMixing'), ('Disease', 'LungParench'), ('Disease', 'LungFlow'), ('Disease', 'HypoxiaDistribution'), ('Disease', 'O2Hypoxia'), ('Disease', 'CO2'), ('Age', 'Disease'), ('LVH', 'LVHreport'), ('HypoxiaDistribution', 'Sick'), ('HypoxiaDistribution', 'LowerBodO2'), ('HypoxiaDistribution', 'RightQuadO2'), ('O2Hypoxia', 'Sick'), ('CO2', 'CO2Report'), ('Sick', 'Grunting'), ('Sick', 'ChestXray'), ('Grunting', 'GruntingReport'), ('ChestXray', 'XrayReport')]
+    bn_structure = [('BirthAsphyxia', 'HypoxiaInO2'), ('BirthAsphyxia', 'CardiacMixing'), ('BirthAsphyxia', 'LungFlow'), ('BirthAsphyxia', 'LungParench'), ('HypoxiaInO2', 'HypDistrib'), ('HypoxiaInO2', 'CO2'), ('HypoxiaInO2', 'Disease'), ('CardiacMixing', 'LVH'), ('HypDistrib', 'Grunting'), ('HypDistrib', 'ChestXray'), ('HypDistrib', 'LowerBodyO2'), ('HypDistrib', 'RUQO2'), ('CO2', 'CO2Report'), ('Disease', 'Sick'), ('LVH', 'LVHreport'), ('Grunting', 'GruntingReport'), ('ChestXray', 'XrayReport')]
     visualize_bayesian_network(bn_structure, 'test.png', figsize=(12, 12))
