@@ -1,0 +1,28 @@
+node,var_name,var_description,num_of_state
+1,Age,age,2
+2,SocioEcon,socioeconomic status,2
+3,RiskAversion,being risk averse,2
+4,GoodStudent,being a good student driver,2
+5,SeniorTrain,received additional driving training ,2
+6,DrivingSkill,driving skill,2
+7,MedCost,cost of medical treatment,2
+8,OtherCar,being involved with other cars in the accident,2
+9,MakeModel,owning a sport car ,2
+10,VehicleYear,year of vehicle,2
+11,HomeBase,neighbourhood type,2
+12,AntiTheft,car has anti-theft,2
+13,DrivHist,driving history,2
+14,DrivQuality,driving quality,2
+15,Airbag,airbag,2
+16,Antilock,anti-lock,2
+17,RuggedAuto,ruggedness of the car,2
+18,CarValue,value of the car,2
+19,Mileage,how much mileage is on the car,2
+20,Accident,severity of the accident,2
+21,Cushioning,quality of cushioning in car,2
+22,Theft,theft occurred on the car,2
+23,ILiCost,inspection cost,2
+24,OtherCarCost,cost of the other cars,2
+25,ThisCarDam,damage to the car,2
+26,ThisCarCost,costs for the insured car,2
+27,PropCost,ratio of the cost for the two cars ,2

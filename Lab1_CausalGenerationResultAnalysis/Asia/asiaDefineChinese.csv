@@ -1,0 +1,9 @@
+node,var_name,var_description
+1,asia,访问过亚洲
+2,tub,肺结核
+3,smoke,吸烟
+4,lung,肺癌
+5,bronc,支气管炎
+6,either,个体患有肺结核或肺癌
+7,xray,X光检查阳性
+8,dysp,呼吸困难，费力呼吸
