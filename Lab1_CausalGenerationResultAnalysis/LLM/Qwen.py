@@ -10,7 +10,7 @@ class Qwen(LargeLanguageModel):
             api_key=self.api_key,
             base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
         )
-        self.model_name = "qwen-plus"
+        self.model_name = "qwen-max"
         self.default_llm_identity = 'system'
 
     def response(self, messages):
@@ -36,6 +36,8 @@ class Qwen(LargeLanguageModel):
 
         if self.log_history:
             self.chat_history.append({"role": self.default_llm_identity, "content": completion.choices[0].message.content})
+            if self.log_pth is not None:
+                self.save_logfile(info=self.generate_single_log(self.chat_history))
 
         return completion
 
