@@ -24,7 +24,7 @@ class LargeLanguageModel:
 
     def save_logfile(self, info: str):
         if self.log_pth is not None:
-            with open(self.log_pth, "w") as f:
+            with open(self.log_pth, "a") as f:
                 f.write(self.generate_single_log(info) + "\n")
 
     def response(self, message):
@@ -43,5 +43,6 @@ class LargeLanguageModel:
         if self.log_history:
             self.chat_history.append({"role": self.default_user_identity, "content": input_msg})
             if self.log_pth is not None:
-                self.save_logfile(info=self.generate_single_log(self.chat_history))
+                self.save_logfile(info={"role": self.default_user_identity, "content": input_msg})
+                # self.save_logfile(info=self.generate_single_log(self.chat_history))
         return [{"role": self.default_user_identity, "content": input_msg}] if not self.log_history else self.chat_history

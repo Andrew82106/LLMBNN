@@ -37,7 +37,8 @@ class Qwen(LargeLanguageModel):
         if self.log_history:
             self.chat_history.append({"role": self.default_llm_identity, "content": completion.choices[0].message.content})
             if self.log_pth is not None:
-                self.save_logfile(info=self.generate_single_log(self.chat_history))
+                # self.save_logfile(info=self.generate_single_log(self.chat_history))
+                self.save_logfile(info={"role": self.default_llm_identity, "content": completion.choices[0].message.content})
 
         return completion
 

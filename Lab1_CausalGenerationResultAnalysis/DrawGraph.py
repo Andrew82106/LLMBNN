@@ -2,15 +2,15 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
-def visualize_bayesian_network(bn_structure, savepath, figsize=(12, 12)):
+def visualize_bayesian_network(bn_structure_, savepath, figsize=(12, 12)):
     """
     可视化贝叶斯网络
-    :param bn_structure: 贝叶斯网络结构，格式为列表的元组，例如 [('A', 'B'), ('B', 'C')]
+    :param bn_structure_: 贝叶斯网络结构，格式为列表的元组，例如 [('A', 'B'), ('B', 'C')]
     :param savepath: 图像保存路径
     :param figsize: 图像大小，默认为 (12, 12)
     """
     # 创建有向图对象
-    model = nx.DiGraph(bn_structure)
+    model = nx.DiGraph(bn_structure_)
 
     # 计算节点和边的数量
     num_nodes = len(model.nodes)
@@ -56,5 +56,5 @@ def visualize_bayesian_network(bn_structure, savepath, figsize=(12, 12)):
 
 if __name__ == '__main__':
     # 示例网络结构
-    bn_structure = [('BirthAsphyxia', 'HypoxiaInO2'), ('BirthAsphyxia', 'CardiacMixing'), ('BirthAsphyxia', 'LungFlow'), ('BirthAsphyxia', 'LungParench'), ('HypoxiaInO2', 'HypDistrib'), ('HypoxiaInO2', 'CO2'), ('HypoxiaInO2', 'Disease'), ('CardiacMixing', 'LVH'), ('HypDistrib', 'Grunting'), ('HypDistrib', 'ChestXray'), ('HypDistrib', 'LowerBodyO2'), ('HypDistrib', 'RUQO2'), ('CO2', 'CO2Report'), ('Disease', 'Sick'), ('LVH', 'LVHreport'), ('Grunting', 'GruntingReport'), ('ChestXray', 'XrayReport')]
+    bn_structure = [('BirthAsphyxia', 'LVH'), ('LVH', 'DuctFlow'), ('LVH', 'LungParench'), ('Disease', 'CardiacMixing'), ('CardiacMixing', 'LungParench'), ('CardiacMixing', 'LungFlow'), ('LungParench', 'HypDistrib'), ('LungFlow', 'HypDistrib'), ('LungFlow', 'CO2'), ('LungFlow', 'Grunting'), ('LungFlow', 'HypoxiaInO2'), ('HypDistrib', 'LowerBodyO2'), ('HypDistrib', 'RUQO2'), ('Sick', 'Age'), ('Sick', 'ChestXray'), ('Sick', 'LVHreport'), ('Sick', 'CO2Report'), ('Sick', 'XrayReport'), ('Sick', 'GruntingReport'), ('Sick', 'HypDistrib')]
     visualize_bayesian_network(bn_structure, 'test.png', figsize=(12, 12))

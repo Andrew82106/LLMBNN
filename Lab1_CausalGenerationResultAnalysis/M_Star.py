@@ -143,9 +143,10 @@ def Refine_BN(response1, nodes_name_lst, web_llm) -> list:
             elif not check_res['connected']:
                 Reason_prompt.append(f"网络不连通，图中包含如下连通块：{check_res['connected_nodes']}，请将其连起来。")
 
-            Error_prompt += Reason_prompt
+            for reason_i in Reason_prompt:
+                Error_prompt += reason_i
             # 提示用户仅返回网络拓扑列表，避免其他多余字符
-            Error_prompt += "请重新生成，你本次的返回值只应该只包含类似[('A', 'B'),('B','C')]的网络拓扑列表，不要返回其他任何的多余字符。"
+            Error_prompt += "请重新生成，你本次的返回值应该只包含类似[('A', 'B'),('B','C')]的网络拓扑列表，不要返回其他任何的多余字符。"
 
             # 根据错误提示重新生成网络结构响应，并评估生成的网络结构
             response1 = web_llm.response_only_text(web_llm.generate_msg(Error_prompt))

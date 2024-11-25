@@ -76,3 +76,126 @@ def generate_BNN_MStar(nodes_name_lst, nodes_info_list) -> BayesianNetwork:
 大网络用$M^*$算法，现阶段还存在一些问题，最突出的一个就是构建出来的网络结构是非法的，这意味着网络要么不联通要么有环或者要么有些点丢掉了。
 
 针对这种情况，应该设置第三个Prompt，对网络结构进行修改。
+
+## 2024.11.25
+
+记录一个实验现象：
+
+MStar生成的Child网络如下所示：
+
+```plain text
+[('BirthAsphyxia', 'LVH'),
+ ('BirthAsphyxia', 'DuctFlow'),
+ ('BirthAsphyxia', 'CardiacMixing'),
+ ('BirthAsphyxia', 'LungParench'),
+ ('BirthAsphyxia', 'LungFlow'),
+ ('BirthAsphyxia', 'HypDistrib'),
+ ('BirthAsphyxia', 'HypoxiaInO2'),
+ ('BirthAsphyxia', 'CO2'),
+ ('BirthAsphyxia', 'LowerBodyO2'),
+ ('BirthAsphyxia', 'RUQO2'),
+ ('LVH', 'Grunting'),
+ ('LVH', 'ChestXray'),
+ ('LVH', 'CO2Report'),
+ ('LVH', 'XrayReport'),
+ ('LVH', 'GruntingReport'),
+ ('LVH', 'Sick'),
+ ('LVH', 'LVHreport'),
+ ('DuctFlow', 'Grunting'),
+ ('DuctFlow', 'ChestXray'),
+ ('DuctFlow', 'CO2Report'),
+ ('DuctFlow', 'XrayReport'),
+ ('DuctFlow', 'GruntingReport'),
+ ('DuctFlow', 'Sick'),
+ ('CardiacMixing', 'Grunting'),
+ ('CardiacMixing', 'ChestXray'),
+ ('CardiacMixing', 'CO2Report'),
+ ('CardiacMixing', 'XrayReport'),
+ ('CardiacMixing', 'GruntingReport'),
+ ('CardiacMixing', 'Sick'),
+ ('LungParench', 'Grunting'),
+ ('LungParench', 'ChestXray'),
+ ('LungParench', 'CO2Report'),
+ ('LungParench', 'XrayReport'),
+ ('LungParench', 'GruntingReport'),
+ ('LungParench', 'Sick'),
+ ('LungFlow', 'Grunting'),
+ ('LungFlow', 'ChestXray'),
+ ('LungFlow', 'CO2Report'),
+ ('LungFlow', 'XrayReport'),
+ ('LungFlow', 'GruntingReport'),
+ ('LungFlow', 'Sick'),
+ ('HypDistrib', 'Grunting'),
+ ('HypDistrib', 'ChestXray'),
+ ('HypDistrib', 'CO2Report'),
+ ('HypDistrib', 'XrayReport'),
+ ('HypDistrib', 'GruntingReport'),
+ ('HypDistrib', 'Sick'),
+ ('HypoxiaInO2', 'Grunting'),
+ ('HypoxiaInO2', 'ChestXray'),
+ ('HypoxiaInO2', 'CO2Report'),
+ ('HypoxiaInO2', 'XrayReport'),
+ ('HypoxiaInO2', 'GruntingReport'),
+ ('HypoxiaInO2', 'Sick'),
+ ('CO2', 'Grunting'),
+ ('CO2', 'ChestXray'),
+ ('CO2', 'CO2Report'),
+ ('CO2', 'XrayReport'),
+ ('CO2', 'GruntingReport'),
+ ('CO2', 'Sick'),
+ ('LowerBodyO2', 'Grunting'),
+ ('LowerBodyO2', 'ChestXray'),
+ ('LowerBodyO2', 'CO2Report'),
+ ('LowerBodyO2', 'XrayReport'),
+ ('LowerBodyO2', 'GruntingReport'),
+ ('LowerBodyO2', 'Sick'),
+ ('RUQO2', 'Grunting'),
+ ('RUQO2', 'ChestXray'),
+ ('RUQO2', 'CO2Report'),
+ ('RUQO2', 'XrayReport'),
+ ('RUQO2', 'GruntingReport'),
+ ('RUQO2', 'Sick'),
+ ('Disease', 'LVH'),
+ ('Disease', 'DuctFlow'),
+ ('Disease', 'CardiacMixing'),
+ ('Disease', 'LungParench'),
+ ('Disease', 'LungFlow'),
+ ('Disease', 'HypDistrib'),
+ ('Disease', 'HypoxiaInO2'),
+ ('Disease', 'CO2'),
+ ('Disease', 'LowerBodyO2'),
+ ('Disease', 'RUQO2'),
+ ('Age', 'Sick')]
+```
+
+长这样：
+
+![Child.png](Child.png)
+
+该网络对反演数据（5000样本）的预测效果在某些节点上比原网络好：
+
+![output2.png](output2.png)
+
+10000样本的预测效果如下：
+
+![output4.png](output4.png)
+
+1000样本的预测效果如下：
+
+![output5.png](output5.png)
+
+500样本的预测效果如下：
+
+![output6.png](output6.png)
+
+将样本量减少到100个效果如下，发现效果好了更多：
+
+![output3.png](output3.png)
+
+规律很明显，样本量越小，两种方法的差距越大。
+
+此时将原网络用全量数据训练得到的CPT换成官方的CPT，500个样本的预测效果对比如下：
+
+![output7.png](output7.png)
+
+这是不是意味着官方给出的网络结构在推理上并非最优？如何验证呢？
